@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../css/style.css" />
+		<script type="text/javascript" src="../../js/libs/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="../../js/base/siteConfigUrl.js" ></script>
+		<script type="text/javascript" src="../../js/libs/template.js"></script>
+		<script type="text/javascript" src="yeji.js"></script>
+		<title>当月业绩</title>
+		<style>
+	
+		</style>
+	</head>
+
+	<body style="background-color: #eee;">
+		<div class="d_rcontent">
+			<script type="text/html" id="d_yeji">
+				<ul>
+					<li><span>当月开通的店铺</span><span>{{data.month_count}}</span></li>
+					<li><span>累计开通的店铺</span><span>{{data.total_count}}</span></li>
+					<li><span>当月销售(元)</span><span>{{data.month_amount}}</span></li>
+					<li><span>累计销售(元)</span><span>{{data.total_amount}}</span></li>
+				</ul>
+			</script>
+		</div>
+	</body>
+
+</html>

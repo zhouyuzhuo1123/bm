@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../css/style.css" />
+		<link rel="stylesheet" href="../../css/reset.css" />
+		<link rel="stylesheet" href="../../css/weui.min.css" />
+		<link rel="stylesheet" href="../../css/jquery-weui.css" />
+		<script type="text/javascript" src="../../js/libs/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="../../js/widget/jquery-weui.js"></script>
+		<script type="text/javascript" src="../../js/libs/template.js"></script>
+		<script type="text/javascript" src="../../js/base/siteConfigUrl.js"></script>
+		<script type="text/javascript" src="../../js/common/trace_detail.js"></script>
+		<title>查看物流</title>
+		<style>
+			.weui_panel:after,
+			.weui_panel:before {
+				width: 0;
+			}
+			.weui_media_box.weui_media_appmsg .weui_media_hd {
+				height: 70px;
+				line-height: 70px;
+			}
+			.weui_media_box .weui_media_title {
+				margin-top: 25px;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #EEEEEE;">
+		<div class="main-content">
+
+		</div>
+		<script type="text/html" id="d_trades">
+			<div class="weui_panel weui_panel_access ">
+
+				<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+					<div class="weui_media_hd" style="width: 35px;margin-right: 20px;">
+						<img class="weui_media_appmsg_thumb" src="../../img/touxiang.png" alt="">
+					</div>
+					<div class="weui_media_bd">
+						<!--	<p class="weui_media_title">派送员：<span>小猪猪</span></p>-->
+						<h4 class="weui_media_title">{{logistics_company}}:<span>{{invoice_no}}</span></h4>
+						<!--	<h4 class="weui_media_title">电话<span>135123451234</span></h4>-->
+					</div>
+				</a>
+
+			</div>
+			<div class="d_wrap2">
+				<div class="d_title1">物流跟踪</div>
+			
+				<ul class="d_wuliu">
+					{{each logistics.lastResult.data as value i}}
+					<li>
+						<p>{{value.context}}</p>
+						<p>{{value.time}}</p>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+		</script>
+		
+	</body>
+
+</html>

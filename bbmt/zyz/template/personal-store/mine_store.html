@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../css/style.css" />
+			<link rel="stylesheet" href="../../css/weui.min.css" />
+		<link rel="stylesheet" href="../../css/jquery-weui.css" />
+		<script type="text/javascript" src="../../js/libs/jquery-1.8.3.min.js"></script>
+			<script type="text/javascript" src="../../js/libs/jquery.lazyload.js"></script>
+				<script type="text/javascript" src="../../js/widget/jquery-weui.js"></script>
+			<script type="text/javascript" src="../../js/widget/ajax.js"></script>
+			<script type="text/javascript" src="../../js/widget/render.js"></script>
+		<script type="text/javascript" src="../../js/base/siteConfigUrl.js" ></script>
+		<script type="text/javascript" src="../../js/libs/template.js"></script>
+
+		<script type="text/javascript" src="mine_store.js"></script>
+		<title>我的店铺</title>
+		<style>
+		
+		</style>
+	</head>
+
+	<body style="background-color: #eee;" >
+            
+		<div class="d_bao">
+                          <div class="d_bao1" style="display:none">
+					<ul class="d_rheard">
+						<li>店铺名称</li>
+						<li>当月销售额(元)</li>
+						<li>累计销售额(元)</li>
+					</ul>
+				</div>
+                    
+                    <div id="listdata">
+                        
+                    </div>
+	
+
+		</div>
+		   <div class="weui-infinite-scroll" style="display:none">
+        <div class="infinite-preloader"></div>
+       		正在加载...
+        </div>
+
+	</body>
+        
+  
+        
+	 <script type="text/html" id="d_mine_store">
+			
+  
+		{{each stores as value i}}
+		<ul class="d_rheard  item{{i}}}">
+			<li>{{value.shop_name}}</li>
+			<li>{{value.month_amount}}</li>
+			<li>{{value.total_amount}}</li>
+		</ul>
+		{{/each}}
+		</script>
+
+</html>

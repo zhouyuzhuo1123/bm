@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		<meta name="format-detection" content="telephone=no" />
+		<title>订单详情</title>
+		<link rel="stylesheet" href="../../css/style.css" />
+		<link rel="stylesheet" href="../../css/iconfont.css" />
+		<link rel="stylesheet" href="../../css/reset.css" />
+		<link rel="stylesheet" href="../../css/weui.min.css" />
+		<link rel="stylesheet" href="../../css/common.css" />
+		<link rel="stylesheet" href="../../css/jquery-weui.css" />
+		<script type="text/javascript" src="../../js/libs/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="../../js/widget/jquery-weui.js"></script>
+		<script type="text/javascript" src="../../js/base/rem.js"></script>
+		<script type="text/javascript" src="../../js/libs/template.js"></script>
+		<script type="text/javascript" src="../../js/base/siteConfigUrl.js"></script>
+		<script type="text/javascript" src="../../js/common/order_detail.js"></script>
+	</head>
+        <style>	
+			.weui_cells:after,
+			.weui_cells:before {
+				width: 0;
+			}
+			.weui_cell {
+				padding: 5px 15px
+			}
+			.weui_cells_access .weui_cell_ft:after {
+				display: none;
+			}
+			
+			.weui_label {
+				display: block;
+				width: 6em;
+				font-size: 14px;
+			}
+			
+			.reset {
+				padding: 10px 15px!important;
+			}
+			
+			#weui_cell:before {
+				border: none!important;
+			}
+			
+			.weui_cells:after,
+			.weui_cells:before {
+				width: 0;
+			}
+			
+			.weui_cell {
+				padding: 5px 15px
+			}
+			
+			.weui_cells_access .weui_cell_ft:after {
+				display: none;
+			}
+			.d_tijiao{
+			position: absolute;
+			bottom:0;
+			}
+			.d_guanbi {		right: 5%!important;
+							}
+			.d_ul2 {
+			width: 100%;
+			}
+			.order-status-tip-bar1:after {
+    content: '|';
+    position: absolute;
+    left: 0.95rem;
+    font-size: 0.8rem;
+    color: #999;
+    top: -0.35rem;
+}
+		</style>
+    </style>
+	<body>
+
+		<div class="main-cover">
+		
+
+		</div>
+		<div class="d_zhe"></div>
+		<div class="d_tan">
+					<ul class="d_ul2">
+						<img src="../../img/guanbi.png" class="d_guanbi" style="width: 25px;">
+						<li style="width: 100%;text-align: center;margin-bottom:20px;font-size: 16px;font-weight:600">付款详情</li>
+					</ul>
+					<div class="d_fenlei" style="width: 100%;">
+						<div class="weui_cells d_reset2">
+							<div class="weui_cell " style="padding:0">
+								<div class="weui_cell_bd weui_cell_primary">
+									<p class="color2">订单编号</p>
+								</div>
+								<div class="weui_cell_ft">
+									<span class="d_bianhao"></span>
+								</div>
+							</div>
+						</div>
+						<div class="weui_cells d_reset2">
+							<div class="weui_cell " style="padding:0">
+								<div class="weui_cell_bd weui_cell_primary">
+									<p class="color2">支付方式</p>
+								</div>
+								<div class="weui_cell_ft">
+									微信
+								</div>
+							</div>
+						</div>
+						<div class="weui_cells d_reset2 border-none" style="margin-bottom:15px;">
+							<div class="weui_cell" style="padding:0">
+								<div class="weui_cell_bd weui_cell_primary">
+									<p style="font-weight:600">付款金额</p>
+								</div>
+								<div class="weui_cell_ft color">
+									&yen;<span class="d_zhenshi"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<a href="javascript:" class="d_que">立即付款</a>
+        </div>
+		
+	</body>
+		<script type="text/html" id="d_content">
+				<div class="order-user bg-white">
+					{{if trade_status>=10}}
+						<div class="order-user-msg status2">
+                                                 {{each orders as next}}
+		                       		<a href="trace_detail.html?invoice_no={{next.invoice_no}}&logistics_company={{next.logistics_company}}"  >
+							<i class="fl tu iconfont icon-wuliu"></i>
+							<div class="title fl color-3">物流信息</div>
+							</a>
+                                                   {{/each}}
+						</div>
+					{{/if}}
+						<div class="order-user-msg">
+							<i class="fl tu iconfont icon-dingwei"></i>
+						<div class="title fl color-3">收货信息</div>
+					{{if trade_status==0}}
+                        <span style="color:#ff5000; position:absolute;right:0px;top:9px">已关闭</span>
+                	{{/if}}
+                	{{if trade_status==1}}
+                        <span style="color:#ff5000; position:absolute;right:0px;top:9px">已下单</span>
+                	{{/if}}		
+                    {{if trade_status==4}}
+                        <span style="color:#ff5000; position:absolute;right:0px;top:9px">已付款</span>
+                	{{/if}}		
+                    {{if trade_status==8}}
+                       {{if trade_type==0}}
+                            <span style="color:#ff5000; position:absolute;right:0px;top:9px">已付款</span>
+                       {{else}}
+                            <span style="color:#ff5000; position:absolute;right:0px;top:9px">已清关</span>
+                       {{/if}}
+                	{{/if}}		
+                    {{if trade_status==10}}
+                        <span style="color:#ff5000; position:absolute;right:0px;top:9px">已发货</span>
+                      
+                	{{/if}}
+					</div>
+					<p class="mt-4">
+						<span>收货姓名：</span>
+						<span>{{shippingaddr_name}}</span>
+					</p>
+					<p>
+						<span>收货手机：</span>
+						<span>{{shippingaddr_mobile}}</span>
+					</p>
+					{{if trade_type==1}}
+					<p>
+						<span>身份证号：</span>
+						<span  class="d_xx0">{{shippingaddr_idcard}}</span>
+					</p>
+					{{/if}}
+					<p>
+						<span>收货地址：</span>
+						<span>{{shippingaddr_state}}{{shippingaddr_city}}{{shippingaddr_district}}{{shippingaddr_address}}</span>
+					</p>
+				</div>
+				{{each orders as value i}}
+				<div class="weui_panel weui_panel_access order-product">
+					<div class="weui_panel_bd">
+						<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+							<div class="weui_media_hd" style="margin-right:10px;">
+								<img class="weui_media_appmsg_thumb" src="{{value.pic_url}}@!pic_200_200" alt="">
+							</div>
+							<div class="weui_media_bd">
+
+								<p class="order-product-name color-3">{{value.title}}</p>
+								<p class="order-product-dec">
+									<span>规格：{{value.sku_spec_name}}</span>
+									<span class="num fr color3" >×{{value.num}}</span>
+								</p>
+							</div>
+						</a>
+					</div>
+				</div>
+				{{/each}}
+
+				<div class="order-user bg-white">
+					<div class="order-user-msg">
+						<div class="title fl color-3">结算</div>
+					</div>
+					<div>
+						<p class="mt-4 ">
+							<span class="color-6">商品总额：</span>
+							<span class="fr">&yen;{{total_fee}}</span>
+						</p>
+						<p>
+							<span class="color-6">运费：</span>
+							<span class="fr">&yen;0.00</span>
+						</p>
+						{{if discount_fee!=0}}
+							<p>
+								<span class="color-6">首单立减：</span>
+								<span class="fr">-&yen;{{discount_fee}}</span>
+							</p>
+						{{/if}}
+						<p>
+							<span class="color-6">应付：</span>
+                            <span class="fr base-color">&yen;<span id="moery">{{pay_amount}}</span></span>
+						</p>
+					</div>
+				</div>
+				<div class="order-status-msg bg-white color-9">
+                    <p>订单编号：<span id="tid">{{tid}}</span></p>
+					<p>创建时间：{{created}}</p>
+					{{if trade_status==0}}
+						{{each orders as value i}}<p>关闭时间：{{end_time}}</p><p>关闭原因：{{value.close_mark}}</p>{{/each}}
+
+					{{/if}}
+				</div>
+				{{if trade_status>0}}
+					<div class="order-status">
+						<div class="order-status-tip bg-e">
+							<div class="{{if trade_status>=1}}tip-1-0{{else}}tip-1-1{{/if}} fl"></div>
+							<div class="info fl">
+								<span class="triangle"></span>
+								<div class="article">{{if trade_status>=1}}已下单<span class="time fr">{{created}}</span>{{/if}}</div>
+							</div>
+						</div>
+						<div class="{{if trade_status>1}}order-status-tip-bar{{else}}order-status-tip-bar1{{/if}}"></div>
+						<div class="order-status-tip bg-e">
+							<div class="{{if trade_status>=4}}tip-2-0{{else}}tip-2-1{{/if}} fl"></div>
+							<div class="info fl">
+								<span class="triangle"></span>
+								<div class="article">{{if trade_status>=4}}已付款<span class="time fr">{{pay_time}}</span>{{/if}}</div>
+							</div>
+						</div>
+						{{if trade_type==1}}
+							<div class="{{if trade_status>=8}}order-status-tip-bar{{else}}order-status-tip-bar1{{/if}}"></div>
+							<div class="order-status-tip bg-e">
+								<div class="{{if trade_status>=8}}tip-3-0{{else}}tip-3-1{{/if}} fl"></div>
+								<div class="info fl">
+									<span class="triangle"></span>
+									<div class="article">{{if trade_status>=8}}已清关<span class="time fr">{{cc_time}}</span>{{/if}}</div>
+								</div>
+							</div>
+						{{/if}}
+						<div class="{{if trade_status>=10}}order-status-tip-bar{{else}}order-status-tip-bar1{{/if}}"></div>
+						<div class="order-status-tip bg-e">
+							<div class="{{if trade_status>=10}}tip-4-0{{else}}tip-4-1{{/if}} fl"></div>
+							<div class="info fl">
+								<span class="triangle"></span>
+								<div class="article">{{if trade_status>=10}}已发货<span class="time fr">{{consign_time}}</span>{{/if}}</div>
+							</div>
+						</div>
+						<div class="{{if trade_status>=100}}order-status-tip-bar{{else}}order-status-tip-bar1{{/if}}"></div>
+						<div class="order-status-tip bg-e">
+							<div class="{{if trade_status>=100}}tip-5-0{{else}}tip-5-1{{/if}} fl"></div>
+							<div class="info fl">
+								<span class="triangle"></span>
+								<div class="article">{{if trade_status>=100}}已收货<span class="time fr">{{end_time}}</span>{{/if}}</div>
+							</div>
+						</div>
+					</div>
+				{{/if}}
+					{{if trade_status>0 && trade_status!=4}}
+						<div class="submit-bar bg-white">
+							{{if trade_status==1}}
+		                        <a href="javascript:" class="no btn fr" style="border-color:#FF5000 ;" id="pay-btn">支付</a>
+		                        <a data-tid="{{tid}}" href="javascript:" class="yes btn fr" id="cancel-btn">取消订单</a>
+		                	{{/if}}
+		               	 	{{if trade_status==10}}
+		                        <a href="javascript:" class="yes btn fr d_activeQ"" id="ok-btn" >确认收货</a>
+		                        {{each orders as next}}
+		                       		<a href="trace_detail.html?invoice_no={{next.invoice_no}}&logistics_company={{next.logistics_company}}" class="yes btn fr" >查看物流</a>
+		                       	{{/each}}
+		                	{{/if}}
+		                	{{if trade_status==100}}
+		                        <a href="tel:0571-81182537" class="yes btn fr d_activeQ" id="refund-btn">申请退款</a>
+		                	{{/if}}
+		                
+		                </div>
+                 	{{/if}}
+                 			{{if trade_status=0 && trade_status!=4}}
+                 			{{/if}}
+			</script>
+
+</html>

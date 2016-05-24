@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>全部商品</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, height=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../css/common.css?v=11" />
+		<link rel="stylesheet" href="../../css/iconfont.css?v=11" />
+		<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<script type="text/javascript" src="../../js/base/siteConfigUrl.js"></script>
+		<script type="text/javascript" src="../../js/libs/require.js"></script>
+		<script type="text/javascript" src="../../js/main.js"></script>
+		<script type="text/javascript" src="../../js/common/cats.js"></script>
+		<script type="text/javascript" src="../../js/base/rem.js"></script>
+		<script type="text/javascript">
+			wx.config({
+			    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+			    appId: '', // 必填，公众号的唯一标识
+			    timestamp: '', // 必填，生成签名的时间戳
+			    nonceStr: '', // 必填，生成签名的随机串
+			    signature: '',// 必填，签名，见附录1
+			    jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+			});
+		</script>
+		<script type="text/javascript">
+			wx.ready(function(){
+				alert(111)
+			    // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+			});
+		</script>
+	</head>
+	<body>
+		<div class="search_bar">
+			<div class="search_bar_form">
+				<form  action="" class="">
+						<span class="tip"></span>
+						<input value="" type="search" class="search" placeholder="商品名称搜索" />
+				</form>
+			</div>
+		</div>
+		<ul class="d_tab">
+			<li data-x="0.5%" class="d_bor_active" >
+				保税仓发货
+			</li>
+			<li data-x="99.5%">
+			    国内发货
+			</li>
+			<div class="xtab-underline" style="transform:translateX(1%) translateZ(0px)"></div>
+		</ul>
+		<div class="d_wrap">
+			<ul class="d_left"></ul>
+			<ul class="d_right"></ul>
+		</div>
+		<div class="d_footer">
+			<a href="javascript:">
+				<p><i class="iconfont icon-dianpushop color"></i></p>
+				<p class="color">首页</p>
+			</a>
+			<a href="../activity/index.html">
+				<p><i class="iconfont icon-fenlei"></i></p>
+				<p>分类</p>
+			</a>
+			<a href="../order/order_list.html">
+				<p><i class="iconfont icon-dingdan"></i></p>
+				<p>所有订单</p>
+			</a>
+		</div>
+	</body>
+
+</html>

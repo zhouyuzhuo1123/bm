@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../css/style.css" />
+		<link rel="stylesheet" href="../../css/reset.css" />
+		<link rel="stylesheet" href="../../css/weui.min.css" />
+		<link rel="stylesheet" href="../../css/jquery-weui.css" />
+		<link rel="stylesheet" href="../../css/iconfont.css" />
+		<script type="text/javascript" src="../../js/widget/json-array-of-province.js"></script>
+		<script type="text/javascript" src="../../js/widget/json-array-of-city.js"></script>
+		<script type="text/javascript" src="../../js/widget/json-array-of-district.js"></script>
+		<script type="text/javascript" src="../../js/libs/jquery.js"></script>
+		<script type="text/javascript" src="../../js/base/siteConfigUrl.js"></script>
+		<script type="text/javascript" src="../../js/common/order.js"></script>
+		<script type="text/javascript" src="../../js/widget/ajax.js"></script>
+		<script type="text/javascript" src="../../js/libs/template.js"></script>
+		<script type="text/javascript" src="../../js/widget/jquery-weui.js"></script>
+		<script type="text/javascript" src="../../js/base/api_url.js"></script>
+        <script type="text/javascript" src="../../js/widget/validator.js" ></script>	
+		<script type="text/javascript" src="../../js/common/city.js"></script>
+
+		<title>下单</title>
+		<style>
+			.weui_cells:after,
+			.weui_cells:before {
+				width: 0;
+			}
+			
+			.weui_cell {
+				padding: 5px 15px
+			}
+			
+			.weui_cells_access .weui_cell_ft:after {
+				display: none;
+			}
+			
+			.weui_label {
+				display: block;
+				width: 6em;
+				font-size: 14px;
+			}
+			
+			.reset {
+				padding: 10px 15px!important;
+			}
+			
+			#weui_cell:before {
+				border: none!important;
+			}
+			
+			.weui_cells:after,
+			.weui_cells:before {
+				width: 0;
+			}
+
+			
+			.weui_cells_access .weui_cell_ft:after {
+				display: none;
+			}
+			.d_tijiao{
+            bottom:0px;
+			position: fixed;
+			
+			}
+			.d_guanbi {
+				right: 5%;
+         }
+			.d_ul2 {
+			width: 100%;}
+		 
+
+			.dd1{
+			    line-height: 35px;
+    background-color: #eee;
+    text-indent: 15px;
+    font-size: 15.4px
+			}
+			.d_reset3 {
+    border-bottom: 1px solid #CCCCCC;
+    /* width: 95%; */
+    margin: 10px;
+    padding: 10px 0px;
+    margin-top: 5px;
+}
+		</style>
+
+	</head>
+
+	<body style="background-color: #EEEEEE;">
+		
+		<div id="main-wrap">
+			<script type="text/html" id="d_order">
+				<div class="weui_cells weui_cells_access border-none" style="display: none;" id="d_tianhao">
+					<a class="weui_cell d_reset1" href="javascript:;"style="padding:0;">
+						<div class="weui_cell_hd">
+							<i class="fl tu iconfont icon-dingwei"></i>
+						
+						</div>
+						<div class="weui_cell_bd weui_cell_primary" >
+							<p>收货信息</p>
+						</div>
+
+					</a>
+
+					<div class="weui_cells">
+						<div class="weui_cell">
+							<div class="weui_cell_bd weui_cell_primary">
+								<p>收货姓名：<span id="name1"></span></p>
+							</div>
+
+						</div>
+					</div>
+					<div class="weui_cells">
+						<div class="weui_cell">
+							<div class="weui_cell_bd weui_cell_primary">
+								<p>收货手机：<span id="phone1"></span></p>
+							</div>
+						</div>
+					</div>
+					<div class="weui_cells idCard-tpl">
+						<div class="weui_cell">
+							<div class="weui_cell_bd weui_cell_primary">
+								<p>身份证号：<span id="idcard1"></span></p>
+							</div>
+						</div>
+					</div>
+					<div class="weui_cells">
+						<div class="weui_cell">
+							<div class="weui_cell_bd weui_cell_primary">
+								<p>收货地址：<span id="address1"></span></p>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="weui_panel_bd" style="background-color: #fff;">
+					<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg" style="padding-bottom:2.5em;">
+						<div class="weui_media_hd" style="margin-right:10px">
+							<img class="weui_media_appmsg_thumb" src="{{orders.pic_url}}@!pic_200_200" alt="">
+						</div>
+						<div class="weui_media_bd d_reset">
+							<h4 class="weui_media_title" style="margin-top: -10px;	">{{orders.title}}</h4>
+
+							<p class="weui_media_desc d_pay1" style="color: #999999;">规格:<span style="color: #999999;">{{orders.sku_spec_name}}</span><span class="d_guige color1">x{{orders.num}}</span></p>
+							<div class="d_text">{{if discount_fee>0}}<p style="color:#ff5000;margin-right:-0.4em;">【首单立减{{discount_fee}}元】</p>{{/if}}<p>商品总价：<span>¥{{orders.total_fee}}</span></p><p style="font-size:1.2em">付款金额：<span style="color:#ff5000">¥{{pay_amount}}</span></p></div>
+						</div>
+
+					</a>
+				</div>
+
+				<div class="d_footer1">
+					<ul class="d_f2">
+						实付：<span class="color">&yen;{{pay_amount}}</span>
+					</ul>
+					<a id="d_tijiao">下一步</a>
+				</div>
+			
+				<div style="display: none ;" id="d_tian-xq">
+
+					<div class="weui_cells weui_cells_access border-none">
+						<a class="weui_cell d_reset3" href="javascript:;">
+							<div class="weui_cell_hd">
+
+							</div>
+							<div class="weui_cell_bd weui_cell_primary">
+								<p>结算</p>
+							</div>
+
+						</a>
+						<div class="weui_cells">
+							<div class="weui_cell">
+								<div class="weui_cell_bd weui_cell_primary">
+									<p class="color2">商品总额：</p>
+								</div>
+								<div class="weui_cell_ft">
+									&yen;{{total_fee}}
+								</div>
+							</div>
+						</div>
+						<div class="weui_cells">
+							<div class="weui_cell">
+								<div class="weui_cell_bd weui_cell_primary">
+									<p class="color2">运费：</p>
+								</div>
+								<div class="weui_cell_ft">
+									&yen;0.00
+								</div>
+							</div>
+						</div>
+						{{if discount_fee!=0}}
+							<div class="weui_cells">
+								<div class="weui_cell">
+									<div class="weui_cell_bd weui_cell_primary">
+										<p class="color">首单立减：</p>
+									</div>
+									<div class="weui_cell_ft color">
+										-&yen;{{discount_fee}}
+									</div>
+								</div>
+							</div>
+						{{/if}}
+						<div class="weui_cells">
+							<div class="weui_cell">
+								<div class="weui_cell_bd weui_cell_primary">
+									<p class="color2">应付：</p>
+								</div>
+								<div class="weui_cell_ft color">
+									&yen;{{pay_amount}}
+								</div>
+							</div>
+						</div>
+					</div>
+                     
+                     <a class="d_tijiao">提交订单</a>
+                   
+					
+				</div>
+				
+               
+				<div class="d_zhe"></div>
+
+				<div class="d_tan">
+					<ul class="d_ul2">
+						<img src="../../img/guanbi.png" class="d_guanbi" style="width: 25px;">
+						<li style="width: 100%;text-align: center;margin-bottom:20px;font-size: 16px;font-weight:600">付款详情</li>
+					</ul>
+					<div class="d_fenlei" style="width: 100%;">
+						<div class="weui_cells d_reset2" >
+							<div class="weui_cell " style="color:#999;padding:0">
+								<div class="weui_cell_bd weui_cell_primary">
+									<p class="color2">订单号</p>
+								</div>
+								<div class="weui_cell_ft">
+									<span class="d_bianhao"></span>
+								</div>
+							</div>
+						</div>
+						<div class="weui_cells d_reset2">
+							<div class="weui_cell  "style="color:#999;padding:0">
+								<div class="weui_cell_bd weui_cell_primary">
+									<p class="color2">支付方式</p>
+								</div>
+								<div class="weui_cell_ft">
+									微信
+								</div>
+							</div>
+						</div>
+						<div class="weui_cells d_reset2 border-none" style="margin-bottom:15px;">
+							<div class="weui_cell" style="padding:0">
+								<div class="weui_cell_bd weui_cell_primary">
+									<p style="font-weight:600">付款金额</p>
+								</div>
+								<div class="weui_cell_ft color">
+									&yen;<span class="d_zhenshi"></span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<a class="d_que">
+				确认付款
+			</a>
+				</div>
+			</script>
+			
+			
+
+		</div>
+		<div class="weui_cells weui_cells_access border-none" id="d_tian">
+							<div  class="dd1">
+							收货信息
+							</div>
+		
+<!--
+			<div class="weui_cell reset">
+				<div class="weui_cell_hd"><label class="weui_label">请选择省：</label></div>
+				<div class="weui_cell_bd weui_cell_primary"><input type="text" id='city-picker' placeholder="省 市 区 （必填）" class="d_diqu require" />
+				</div>
+			</div>
+-->
+			
+                <div class="weui_cell reset" id="weui_cell">
+                    <div class="weui_cell_hd"><label class="weui_label">收货手机：</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input require" type="mobile" placeholder="手机号（必填）" id="phone" data-type="mobile">
+                    </div>
+                </div>
+                <div class="weui_cell reset">
+                    <div class="weui_cell_hd"><label class="weui_label">收货姓名：</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input require" type="text" placeholder="收货姓名（必填）" id="name">
+                    </div>
+                </div>
+                <div class="weui_cell reset idCard-tpl">
+                    <div class="weui_cell_hd"><label class="weui_label">身份证号：</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input require" type="text" placeholder="身份证号码（必填）" maxlength="18" id="idcard" data-type="idCard">
+                    </div>
+                </div>
+                <div class="weui_cell reset">
+                    <div class="weui_cell_hd"><label class="weui_label">选择地址：</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <select id="province" name="" class="select-box require">
+                          <option value="">请选择省</option>
+                        </select>
+                        <select id="city" class="select-box require">
+                              <option value="">请选择市</option>
+                        </select>
+                        <select id="district" class="select-box require">
+                              <option value="">请选择区县</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weui_cell reset">
+                    <div class="weui_cell_hd"><label class="weui_label">详细地址：</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input require" type="text" placeholder="收货地址（必填）" id="address">
+                    </div>
+                </div>
+            </div>
+		    <div style="height:3.5em"></div>
+		<script>
+            var callpay_data={};
+			function jsApiCall(){
+				WeixinJSBridge.invoke("getBrandWCPayRequest",callpay_data, function(res) { 
+					if (res.err_msg == "get_brand_wcpay_request:ok") {
+                        var _tid=$('.d_bianhao').text();
+					    location.href="order_detail.html?tid="+_tid;
+					} else {
+                        $.toast('支付失败', "forbidden");
+                        var _tid=$('.d_bianhao').text();
+					    location.href="order_detail.html?tid="+_tid;
+					}
+				});
+			}
+			function callpay(data){
+                callpay_data=data;
+				if (typeof WeixinJSBridge == "undefined") {
+					if (document.addEventListener) {
+						document.addEventListener("WeixinJSBridgeReady", jsApiCall, false);
+					} else if (document.attachEvent) {
+						document.attachEvent("WeixinJSBridgeReady", jsApiCall);
+						document.attachEvent("onWeixinJSBridgeReady", jsApiCall);
+					}
+				}else{
+                    jsApiCall();
+                }
+			}
+
+			function ajax() {
+				var mobile = $('#phone1').html();
+				var name = $('#name1').html();
+				var idcard = $('#idcard1').html();
+				var state = $('#province').find('option:selected').text();
+				var city = $('#city').find('option:selected').text();
+				var district = $('#district').find('option:selected').text();
+				var address = $('#address').val();
+				$.ajax({
+						url: apiurl.order_submit,
+						data: {
+							item_id:_order.item_id,
+							sku_id:_order.sku_id,
+							num:_order.num,
+							mobile: mobile,
+							name: name,
+							address: address,
+							idcard: idcard,
+							mobile: mobile,
+							state: state,
+							city: city,
+							district: district
+						},
+						type:'post',
+						success: function(json) {
+							switch (json.return_code) {
+								case 0:
+									$('.d_zhenshi').html(json.data.pay_amount);
+									$('.d_bianhao').html(json.data.tid);
+                                    $('.d_zhe').fadeIn(300);
+					                $('.d_tan').fadeIn(300);
+									break;
+								case 1:
+                                    $.toast(json.return_msg, "forbidden");
+                                    setTimeout(function(){
+                                        $('.d_footer1').show();
+										$('#d_tian').show();
+										$('#d_tianhao').hide();
+										$('#d_tian-xq').hide();
+                                    },300);
+									break;
+									//default
+							}
+						}
+					});
+			};
+			$(document).ready(function() {     
+				$('#main-wrap').on('click', '#d_tijiao', function() {
+					$(document).attr("title","订单详情");
+					var a = $('#phone').val();
+					var b = $('#name').val();
+					var c = $('#idcard').val();
+					var d = $('#province').find('option:selected').text();
+					var e = $('#city').find('option:selected').text();
+					var f = $('#district').find('option:selected').text();
+					var g = $('#address').val();
+					var validator=new Validator();
+					if (validator.all()) {
+                        $('#phone1').html(a);
+						$('#name1').html(b);
+						$('#idcard1').html(c);
+						$('#address1').html(d + e + f +g);
+						$('.d_footer1').hide();
+						$('#d_tian').hide();
+						$('#d_tianhao').show();
+						$('#d_tian-xq').show();
+					} else {
+						$('#d_tijiao').unbind();
+					}
+				});
+                $('#main-wrap').on('click', '.d_tijiao', function() {
+                    ajax();
+                });
+				$('#main-wrap').on('click', '.d_que', function() {
+                    var _tid=$('.d_bianhao').text();
+                    $.post(apiurl.pay,{tid:_tid},function(data){
+                        if(data.return_code==0){
+                            var data=JSON.parse(data.data);
+                            callpay(data);
+                        }else{
+                            $.toast(data.return_msg, "forbidden");
+                        }
+                            
+                    })
+				});
+				$('#main-wrap').on('click', '.d_guanbi', function() {
+                    var _tid=$('.d_bianhao').text();
+					$('.d_zhe').fadeOut(300);
+					$('.d_tan').fadeOut(300);
+					location.href="order_detail.html?tid="+_tid;
+				});
+				
+				$('.d_tijiao').click(function() {
+					$('.d_zhe').fadeIn(300);
+					$('.d_tan').fadeIn(300);
+				});
+				$('.d_fenlei>ul li').click(function() {
+					$(this).addClass('active_').siblings().removeClass('active_');
+				});
+				var a = parseInt($('.d_jisuan span').html());
+				$('#d_jian').click(function() {
+					if (a > 0) {
+						a = a - 1;
+						$('.d_jisuan span').html(a);
+					}
+				});
+				$('#d_jia').click(function() {
+					a = a + 1;
+					$('.d_jisuan span').html(a);
+				});
+				$('#phone').change(function(){
+					var _mobile=$(this).val();
+					$.post(apiurl.user_address,{mobile:_mobile},function(data){
+						if(data.return_code==0){
+							$('#name').val(data.data.name);
+							$('#idcard').val(data.data.idcard);
+							$('#city-picker').val(data.data.state+' '+data.data.city+' '+data.data.district);
+							$.each($('#province').children(),function(i,d){
+								if($(d).text()==data.data.state){
+									$(d).attr('selected',true);
+								}
+
+							});
+							$('#city').html('<option value="1">'+data.data.city+'</option>');
+							$('#district').html('<option value="1">'+data.data.district+'</option>');
+							$('#address').val(data.data.address);
+							$('#phone1').html(_mobile);
+							$('#name1').html(data.data.name);
+							$('#idcard1').html(data.data.idcard);
+							$('#address1').html(data.data.state+' '+data.data.city+' '+data.data.district+data.data.address);
+						}
+					});
+					
+				})
+			});
+		</script>
+	
+
+	</body>
+
+</html>

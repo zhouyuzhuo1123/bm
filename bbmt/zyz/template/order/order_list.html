@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="../../css/style.css" />
+		<link rel="stylesheet" href="../../css/iconfont.css" />
+		<link rel="stylesheet" href="../../css/reset.css" />
+		<link rel="stylesheet" href="../../css/weui.min.css" />
+		<link rel="stylesheet" href="../../css/jquery-weui.css" />
+		<script type="text/javascript" src="../../js/libs/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="../../js/libs/template.js"></script>
+		<script type="text/javascript" src="../../js/base/rem.js"></script>
+		<script type="text/javascript" src="../../js/base/siteConfigUrl.js"></script>
+		<script type="text/javascript" src="../../js/widget/ajax.js"></script>
+		<script type="text/javascript" src="../../js/widget/jquery-weui.js"></script>
+		<script type="text/javascript" src="../../js/widget/render.js"></script>
+		<script type="text/javascript" src="../../js/widget/ajax.js"></script>
+		<script type="text/javascript" src="../../js/common/order_list.js"></script>
+		<title>所有订单</title>
+		<style>
+			.d_container2 {
+				margin-bottom: 15px;
+			}
+			
+			#main-cover {
+				padding-bottom: 50px;
+			}
+					.weui_search_bar:after,
+			.weui_search_bar:before {
+				content: " ";
+				position: absolute;
+				left: 0;
+				width: 100%;
+				height: 0px;
+				border: none!important;
+			}
+			
+			
+			.weui_cells:after,
+			.weui_cells:before {
+				width: 0;
+			}
+			
+			.weui_cell {
+				padding: 5px 0px
+			}
+			
+			.weui_cells_access .weui_cell_ft:after {
+				display: none;
+			}
+			
+			.weui_label {
+				display: block;
+				width: 6em;
+				font-size: 14px;
+			}
+			
+			.reset {
+				padding: 10px 15px!important;
+			}
+			/*.d_title1 {
+				font-size: 15px;
+				text-indent: 14px;
+				line-height: 35px;
+				background-color: #EEEEEE;
+			}*/
+			
+			#weui_cell:before {
+				border: none!important;
+			}
+			
+			.d_fanhui {
+				width: 40px;
+				position: fixed;
+				bottom: 50px;
+				left: 10px;
+				z-index: 200;
+				display: none;
+			}
+			.d_guanbi {		right: 5%!important;
+							}
+			.d_ul2 {
+			width: 100%;}
+		</style>
+	</head>
+
+	<body style="background-color: #EEEEEE;">
+		<img src="../../img/scroll-to-top-icon.png" class="d_fanhui">
+		<div id="main-cover">
+			<div class="d_footer">
+				<a href="../cats/cats.html">
+					<p><i class="iconfont icon-huaban"></i></p>
+					<p>所有商品</p>
+				</a>
+				<a href="../activity/index.html">
+					<p><i class="iconfont icon-laba"></i></p>
+					<p>活动</p>
+				</a>
+				<a href="javascript:">
+					<p><i class="iconfont icon-dingdan color"></i></p>
+					<p class="color">所有订单</p>
+				</a>
+			</div>
+
+
+			<div class="d_zhe"></div>
+			<div class="d_tan">
+				<ul class="d_ul2">
+					<img src="../../img/guanbi.png" class="d_guanbi" style="width: 25px;" />
+					<li style="width: 100%;text-align: center;margin-bottom:20px;font-size: 16px;font-weight:600">付款详情</li>
+				</ul>
+				<div class="d_fenlei" style="width: 100%;">
+					<div class="weui_cells d_reset2">
+						<div class="weui_cell">
+							<div class="weui_cell_bd weui_cell_primary">
+								<p class="color2">订单号</p>
+							</div>
+							<div class="weui_cell_ft  tid" id="order-tid"></div>
+						</div>
+					</div>
+					<div class="weui_cells d_reset2">
+						<div class="weui_cell  ">
+							<div class="weui_cell_bd weui_cell_primary">
+								<p class="color2">支付方式</p>
+							</div>
+							<div class="weui_cell_ft">微信</div>
+						</div>
+					</div>
+					<div class="weui_cells d_reset2 border-none" style="margin-bottom: 25px;">
+						<div class="weui_cell">
+								<div class="weui_cell_bd weui_cell_primary">
+									<p style="font-weight:600">付款金额</p>
+								</div>
+								<div class="weui_cell_ft color pay_price">
+									&yen; <span id="pay_price"> </span>
+								</div>
+						</div>
+					</div>
+				</div>
+				<a class="d_que" href="javascript:">确定付款</a>
+			</div>
+
+		</div>
+		<div class="weui-infinite-scroll" style="display:none">
+        <div class="infinite-preloader"></div>
+       		正在加载...
+        </div>
+		<script>
+			$(document).ready(function() {
+				$(window).scroll(function() {
+					getScroll();
+					if ($(window).scrollTop()==0) {
+						$('.d_fanhui').fadeOut(800);
+					} else {
+						$('.d_fanhui').fadeIn(800);
+						$('.d_fanhui').click(function() {
+							$(window).scrollTop(0);
+						});
+					}
+				});
+				$('.d_activeQ').click(function() {
+					var a = $(this).attr('data-orderID');
+					$('.tid').html(a);
+					var b = $(this).attr('data-orderP');
+					$('.pay_price').html(b);
+					$('.d_zhe').fadeIn(300);
+					$('.d_tan').fadeIn(300);
+				});
+				$('.d_fenlei>ul li').click(function() {
+					$(this).addClass('active_').siblings().removeClass('active_');
+				});
+				var a = parseInt($('.d_jisuan span').html());
+				$('#d_jian').click(function() {
+					if (a > 0) {
+						a = a - 1;
+						$('.d_jisuan span').html(a);
+					}
+				});
+				$('#d_jia').click(function() {
+					a = a + 1;
+					$('.d_jisuan span').html(a);
+				});
+				function getScroll(){
+	                var a=$(document).scrollTop();
+	                window.sessionStorage.orderHeight=a;
+     			} 
+			});
+		</script>
+	</body>
+
+</html>
